@@ -6,6 +6,7 @@ import Routes from "./Routes";
 import { Provider } from "react-redux";
 import {AuthProvider, useAuth} from 'providers/AuthProvider'
 import { initStore } from "./store";
+import { MapProvider } from "providers/MapProvider";
 
 const store = initStore();
 
@@ -13,7 +14,9 @@ const Providers = ({ children }) => {
   return (
     <Provider store={store}>
         <AuthProvider>
-          {children}
+          <MapProvider apiKey='tfFq5i0xQYO8g1wjKwYBcYDDmOWSTGXg'>
+            {children}
+          </MapProvider>
         </AuthProvider>
     </Provider>
   )

@@ -22,13 +22,48 @@ exports.getRentalById = (req, res) => {
 
 exports.createRental = (req, res) => {
   const rentalData = req.body;
+  rentalData.owner = res.locals.user;
 
   Rental.create(rentalData, (error, createdRental) => {
     if (error) {
       return res.mongoError(error);
     }
-    return res.json({
-      message: `Rental with id:${createdRental._id} was added`,
-    });
+    return res.json({createdRental});
   });
 };
+
+
+// middlewares
+exports.isUserRentalOwner = (req, res, next) => {
+  const { rental } = req.body;
+  const user = res.locals.user;
+
+  if (!rental) {
+    return res.sendApiError(
+      { title: 'Invalid Booking', 
+        detail: 'Cannot create booking on undefined rental'});
+  }
+
+  Rental
+    .findById(rental)
+    .populate('owner')
+    .exec((error, foundRental) => {
+      if (error) { return res.mongoError(error); }
+
+      if(foundRental.owner === undefined){
+        return res
+          .sendApiError(
+            { title: 'Invalid User', 
+              detail: 'Cannot create booking on your rental'});
+      }
+
+      if (foundRental.owner.id === user.id) {
+        return res
+          .sendApiError(
+            { title: 'Invalid User', 
+              detail: 'Cannot create booking on your rental'});
+      }
+
+      next();
+    })
+}

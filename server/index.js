@@ -7,12 +7,14 @@ const { provideErrorHandler } = require("./middlewares");
 // routes
 const rentalRoutes = require("./routes/rentals");
 const userRoutes = require("./routes/users");
+const bookingRoutes = require("./routes/bookings");
 
 const { onlyAuthUser } = require("./controllers/users");
 
 // models
 require("./models/rental");
 require("./models/users");
+require("./models/booking");
 
 const app = express();
 
@@ -42,6 +44,7 @@ app.get("/api/v1/secret", onlyAuthUser, (req, res) => {
 // Api routes
 app.use("/api/v1/rentals", rentalRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/bookings", bookingRoutes);
 
 app.listen(PORT, () => {
   console.log("Server is listening on port:", PORT);

@@ -3,6 +3,7 @@
 @import "./rental-home.scss";
 @import "./rental-detail";
 @import "./forms";
+@import "./booking-reserve";
 
 html,
 body {
@@ -54,6 +55,10 @@ body {
       border-color: $main-app-color;
       color: white;
       box-shadow: none;
+    }
+
+    &:disabled {
+      cursor: no-drop;
     }
   }
 }

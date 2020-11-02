@@ -3,6 +3,9 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchRentalById } from "actions";
 import RentalInfo from "components/rental/RentalInfo";
+import TomMap from "components/map/TomMap";
+import BookingReserve from "components/booking/BookingReserve";
+
 
 class RentalDetail extends Component {
   componentDidMount() {
@@ -10,9 +13,20 @@ class RentalDetail extends Component {
     this.props.dispatch(fetchRentalById(id));
   }
 
+  componentWillUnmount() {
+    this.props.dispatch({type: 'UNMOUNT_RENTAL'})
+  }
+
+  get location() {
+    const {rental:{ street, city }} = this.props
+    return street && city && city + ', ' + street
+  }
+
+
+
   render() {
     const { rental, isFetching } = this.props;
-    if (isFetching === true) {
+    if (isFetching || !rental._id) {
       return <h3>Loading...</h3>;
     }
     return (
@@ -23,8 +37,7 @@ class RentalDetail extends Component {
               <img src={rental.image} alt={rental.title} />
             </div>
             <div className="col-md-6">
-              {/* <!-- TODO: Display rental map --> */}
-              <img src={rental.image} alt={rental.title} />
+              <TomMap location={this.location} />
             </div>
           </div>
         </div>
@@ -34,7 +47,9 @@ class RentalDetail extends Component {
             <div className="col-md-8">
               <RentalInfo rental={rental} />
             </div>
-            <div className="col-md-4"> BOOKING</div>
+            <div className="col-md-4"> 
+              <BookingReserve rental={rental} />
+            </div>
           </div>
         </div>
       </section>

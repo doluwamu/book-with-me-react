@@ -4,6 +4,7 @@ import App from "./App";
 
 import "bootstrap/dist/js/bootstrap.min.js";
 import "./index.scss";
+import 'bootstrap-daterangepicker/daterangepicker.css';
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
