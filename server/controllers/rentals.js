@@ -50,11 +50,11 @@ exports.isUserRentalOwner = (req, res, next) => {
     .exec((error, foundRental) => {
       if (error) { return res.mongoError(error); }
 
-      if(foundRental.owner === undefined){
+      if(!foundRental.owner){
         return res
           .sendApiError(
             { title: 'Invalid User', 
-              detail: 'Cannot create booking on your rental'});
+              detail: 'Cannot create booking on undefined rental'});
       }
 
       if (foundRental.owner.id === user.id) {

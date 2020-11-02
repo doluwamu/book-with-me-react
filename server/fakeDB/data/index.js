@@ -60,3 +60,4 @@ exports.rentals = [
     owner: user2Id
   },
 ];
+

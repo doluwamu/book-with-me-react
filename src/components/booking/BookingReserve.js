@@ -3,8 +3,8 @@ import DateRangePicker from 'react-bootstrap-daterangepicker';
 import BwmModal from 'components/shared/Modal';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
-import { createBooking } from 'actions';
- 
+import { createBooking, getBookings } from 'actions';
+
 const moment = extendMoment(Moment);
 
 export class BookingReserve extends Component {
@@ -12,7 +12,8 @@ export class BookingReserve extends Component {
     constructor() {
         super();
 
-        this.dateRef = React.createRef()
+        this.dateRef = React.createRef();
+        this.bookedOutDates = [];
 
         this.state = {
             proposedBooking: {
@@ -21,6 +22,18 @@ export class BookingReserve extends Component {
                 endAt: null
             }
         }
+    }
+
+    async componentDidMount() {
+        const { rental } = this.props;
+        const bookings = await getBookings(rental._id);
+        debugger
+        this.initBookedOutDates(bookings)
+
+    }
+
+    initBookedOutDates(bookings){
+        bookings.forEach(booking => this.bookedOutDates.push(booking))
     }
 
     
