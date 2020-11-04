@@ -26,16 +26,8 @@ export class BookingReserve extends Component {
 
     async componentDidMount() {
         const { rental } = this.props;
-        const bookings = await getBookings(rental._id);
-        debugger
-        this.initBookedOutDates(bookings)
-
+        this.bookedOutDates = await getBookings(rental._id);
     }
-
-    initBookedOutDates(bookings){
-        bookings.forEach(booking => this.bookedOutDates.push(booking))
-    }
-
     
     handleApply = (_, {startDate, endDate}) => {
 
@@ -64,8 +56,13 @@ export class BookingReserve extends Component {
     }
 
     checkInvalidDates = (date) => {
-        // If date is invalid return true
-        return date < moment().add(-1, 'day')
+        let isBookedOut = false;
+
+        isBookedOut = this.bookedOutDates.some(booking =>  moment.range(booking.startAt, booking.endAt).contains(date))
+        
+
+
+        return date < moment().add(-1, 'day') || isBookedOut;
     }
 
     handleGuestChange =  (event) => {
