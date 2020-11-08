@@ -6,7 +6,7 @@ import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 import { createBooking, getBookings } from 'actions';
 import { toast } from 'react-toastify';
-import { Link, Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const moment = extendMoment(Moment);
 
@@ -130,7 +130,7 @@ export class BookingReserve extends Component {
                 <h3 className='booking-price'>$ {rental.dailyPrice} <span className='booking-per-night'>per night</span></h3>
                 <hr></hr>
                 { !isAuth &&
-                    <Link to='/login' className="btn btn-bwm-main">You need to login to make booking</Link>
+                    <Link to='/login' className="btn btn-bwm-main btn-block">You need to login to book this place</Link>
                 }
                 { isAuth &&
                     <>
