@@ -27,9 +27,9 @@ export class RentalHome extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({rentals: {items}}) => {
   return {
-    rentals: state.rentals,
+    rentals: items,
   };
 };
 

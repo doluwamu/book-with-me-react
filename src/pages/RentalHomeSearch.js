@@ -11,7 +11,6 @@ export class RentalHome extends Component {
     }
 
     componentDidUpdate(prevprops){
-        debugger
         const { location: prevLocation } = prevprops.match.params
 
         if (this.location !== prevLocation){
@@ -35,20 +34,29 @@ export class RentalHome extends Component {
         return this.props.match.params.location
     }
 
+    get noRentalsFound() {
+        const { rentals, isFetching } = this.props;
+        return rentals.length === 0 && !isFetching
+    }
+
     render() {
         const { rentals } = this.props;
         return (
             <div className="card-list">
                 <h1 className="page-title">Your Home in "{capitalize(this.location)}"</h1>
                 <div className="row">{this.renderRental(rentals)}</div>
+                { this.noRentalsFound &&
+                    <p className='alert alert-warning'>No rentals found for this search!</p>
+                }
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({rentals: {items, isFetching}}) => {
     return {
-        rentals: state.rentals,
+        rentals: items,
+        isFetching
     };
 };
 
