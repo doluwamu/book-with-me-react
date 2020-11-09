@@ -6,7 +6,7 @@ const RentalSearch = () => {
     const history = useHistory();
 
     const handleSearch = () => {
-        return location ? history.push(`/rentals/${location}/homes`) : history.push('/');
+        location ? history.push(`/rentals/${location}/homes`) : history.push('/');
     }
 
     const handleKeyPress = e => {

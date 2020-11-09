@@ -7,8 +7,17 @@ import { capitalize } from "helpers/functions";
 
 export class RentalHome extends Component {
     componentDidMount() {
-        const {location} = this 
-        this.props.dispatch(fetchRentals(location));
+        return this.fetchRentals
+    }
+
+    componentDidUpdate(prevprops){
+        debugger
+        const { location: prevLocation } = prevprops.match.params
+
+        if (this.location !== prevLocation){
+            return this.fetchRentals
+        }
+
     }
 
     renderRental = (rentals) =>
@@ -17,6 +26,10 @@ export class RentalHome extends Component {
                 <RentalCard rental={rental} />
             </div>
     ));
+
+    get fetchRentals() {
+        return this.props.dispatch(fetchRentals(this.location));
+    }
 
     get location() {
         return this.props.match.params.location

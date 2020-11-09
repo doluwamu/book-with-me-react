@@ -11,7 +11,7 @@ const RentalInfo = ({ rental }) => {
       </h2>
       { rental.owner &&
         <div className="rental-owner">
-          <img src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="owner"/>
+          <img src="/images/avatar.png" alt="owner"/>
           <span>{rental.owner.username}</span>
         </div>
       }
