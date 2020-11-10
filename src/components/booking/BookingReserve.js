@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const moment = extendMoment(Moment);
 
+// Component to make bookings on a certain rental
 export class BookingReserve extends Component {
     
     constructor() {

@@ -2,6 +2,7 @@ import React from "react";
 import { useAuth } from "providers/AuthProvider";
 import { Redirect, Route } from "react-router-dom";
 
+// Checking to make sure user isn't logged in before accessing a certain page 
 const GuestRoute = ({children, ...rest}) => {
 
     const authService = useAuth()

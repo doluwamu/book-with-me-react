@@ -2,6 +2,7 @@
 import axiosService from "services/AxiosService";
 const { bwmAxios } = axiosService;
 
+// Action to fetch all rentals
 export const fetchRentals = (location) => (dispatch) => {
   const query = location ? `/rentals?city=${location}` : "/rentals"
   dispatch({ type: "REQUEST_DATA", resource: 'rentals' });
@@ -15,6 +16,7 @@ export const fetchRentals = (location) => (dispatch) => {
     });
   };
   
+  // Action to fetch certain rental by id
   export const fetchRentalById = (rentalId) => async (dispatch) => {
     dispatch({ type: "REQUEST_DATA", resource: 'rental'});
     const res = await bwmAxios.get(`/rentals/${rentalId}`);
@@ -26,6 +28,7 @@ export const fetchRentals = (location) => (dispatch) => {
   };
   
   
+  // Action to create rental
   export const createRental = (rental) => {
     return bwmAxios.post('/rentals', rental)
   };

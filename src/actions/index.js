@@ -1,4 +1,5 @@
 
+// Function to get server errors while performing an action
 export const extractApiErrors = (resError) => {
   let errors = [{ title: "Errors!", detail: "Ooops!, something went wrong" }];
 
@@ -8,6 +9,7 @@ export const extractApiErrors = (resError) => {
   return errors;
 };
 
+// All actions
 export * from './auth';
 export * from './rentals'
 export * from './bookings'
