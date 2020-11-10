@@ -3,12 +3,15 @@ const { onlyAuthUser } = require("../controllers/users");
 const {
   getRentals,
   getRentalById,
-  createRental
+  createRental,
+  getUserRentals
 } = require("../controllers/rentals");
 
 const router = express.Router();
 
 router.get("", getRentals);
+
+router.get("/me", onlyAuthUser, getUserRentals)
 
 router.get("/:rentalId", getRentalById);
 
