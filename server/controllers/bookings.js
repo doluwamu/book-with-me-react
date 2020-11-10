@@ -1,5 +1,6 @@
 
 const Booking = require('../models/booking');
+const Rental = require('../models/rental');
 const moment = require('moment');
 
 exports.getBookings = async (req, res) => {
@@ -14,12 +15,55 @@ exports.getBookings = async (req, res) => {
   }
 }
 
+exports.getReceivedBookings = async(req, res) => {
+  const { user } = res.locals
+
+  try{
+    const rental = await Rental.find({owner: user}, '_id')
+    const rentalIds = rental.map(r => r.id);
+    const bookings = await Booking.find({rental: {$in: rentalIds}})
+    return res.json(bookings)
+  }catch(error) {
+    return res.mongoError(error)
+  }
+}
+
 exports.getUserBookings = async(req, res) => {
   const { user } = res.locals
 
   try {
     const bookings = await Booking.find({user}).populate('user', '-password').populate('rental')
     return res.json(bookings)
+  } catch (error) {
+    return res.mongoError(error)
+  }
+}
+
+exports.deleteBooking = async(req, res) => {
+  const { bookingId } = req.params;
+  const { user } = res.locals
+  const DAYS_THRESHOLD = 3
+
+  try {
+    const booking = await Booking.findById(bookingId).populate('user', '-password')
+
+    if (user.id !== booking.user.id){
+      return res.sendApiError({
+          title: "Invalid User",
+          detail: "You are not booking creator!",
+      });
+    }
+
+    if(moment(booking.startAt).diff(moment(), 'days') > DAYS_THRESHOLD){
+      await booking.remove();
+      return res.json({id: bookingId});
+    }else{
+      return res.sendApiError({
+        title: "Invalid Booking",
+        detail: "You can only delete booking at least 3 days before arrival!",
+    });
+    }
+
   } catch (error) {
     return res.mongoError(error)
   }

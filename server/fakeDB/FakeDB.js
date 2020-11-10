@@ -1,4 +1,4 @@
-const { rentals, users, bookings } = require("./data");
+const { rentals, users } = require("./data");
 const Rental = require("../models/rental");
 const User = require("../models/users");
 const Booking = require("../models/booking");
