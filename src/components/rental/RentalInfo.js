@@ -2,6 +2,8 @@ import React from "react";
 import RentalAssets from "./RentalAssets";
 import { capitalize } from "helpers/functions";
 
+
+// Function to display information about a rental on rental details page
 const RentalInfo = ({ rental }) => {
   return (
     <div className="rental">

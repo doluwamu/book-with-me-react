@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 
 const rentalOptions = ['apartment', 'condo', 'house']
 
+// Function for creating a rental
 const CreateRentalForm = ({onSubmit}) => {
     const { register, handleSubmit } = useForm();
     return (

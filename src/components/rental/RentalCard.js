@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+
+// Function for displaying rental card for home page
 const RentalCard = ({ rental }) => {
   return (
     <Link className="rental-link" to={`/rentals/${rental._id}`}>

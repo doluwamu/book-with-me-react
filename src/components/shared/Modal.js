@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 
+// Modal for creating booking confirmation
 const BwmModal = (
     {title = "Modal Window", 
     subtitle = "Confirm your data", 

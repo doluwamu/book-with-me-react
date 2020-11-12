@@ -3,6 +3,8 @@ import { useEffect, useCallback, useRef } from 'react';
 import './TomMap.scss'
 import { useMap } from 'providers/MapProvider';
 
+
+// Function for displaying map
 const TomMap = ({ location }) => {
     let map = useRef(null);
 

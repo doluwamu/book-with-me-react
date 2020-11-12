@@ -6,7 +6,7 @@ import RentalInfo from "components/rental/RentalInfo";
 import TomMap from "components/map/TomMap";
 import BookingReserve from "components/booking/BookingReserve";
 
-
+// Rental details page component
 class RentalDetail extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;

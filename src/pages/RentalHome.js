@@ -3,6 +3,8 @@ import RentalCard from "components/rental/RentalCard";
 import { connect } from "react-redux";
 import { fetchRentals } from "actions";
 
+
+// Home page component
 export class RentalHome extends Component {
   componentDidMount() {
     this.props.dispatch(fetchRentals());

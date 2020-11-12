@@ -1,5 +1,6 @@
 import React from "react";
 
+// Function to handle errors while filling out forms
 const FormsError = ({ children, errors, name }) => {
   const error = errors[name] || null;
 

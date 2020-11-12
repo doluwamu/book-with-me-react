@@ -5,6 +5,8 @@ import { fetchRentals } from "actions";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import { capitalize } from "helpers/functions";
 
+
+// Rental search page component
 export class RentalHome extends Component {
     componentDidMount() {
         return this.fetchRentals

@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import RentalSearchInput from "components/rental/RentalSearchInput";
 
+// Nav bar
 const Header = ({isAuth, username, logout}) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

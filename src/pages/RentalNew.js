@@ -3,6 +3,7 @@ import RentalForm from 'components/forms/RentalForm'
 import { createRental } from 'actions'
 import { Redirect } from 'react-router-dom'
 
+// Create new rental page component
 export class RentalNew extends Component {
 
     state = {

@@ -4,6 +4,8 @@ import { Redirect } from "react-router-dom";
 import ApiError from "components/forms/ApiError";
 import { withAuth } from "providers/AuthProvider";
 
+
+// Login page component
 class Login extends Component {
   state = {
     shouldRedirect: false,

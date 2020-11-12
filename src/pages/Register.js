@@ -4,6 +4,7 @@ import { registerUser } from "actions";
 import { Redirect } from "react-router-dom";
 import ApiError from "components/forms/ApiError";
 
+// Register page component
 class Register extends Component {
   state = {
     shouldRedirect: false,

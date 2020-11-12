@@ -5,6 +5,8 @@ import { sameAs } from "helpers/validators";
 // eslint-disable-next-line
 const EMAIL_PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+
+// Function for displaying registration form
 function RegisterForm({ onSubmit }) {
   const { register, handleSubmit, errors, getValues } = useForm();
   return (

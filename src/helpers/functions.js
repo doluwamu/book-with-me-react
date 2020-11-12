@@ -1,3 +1,5 @@
+
+// Function for capitalizing first letter of a name e.g San Fransisco
 export const capitalize = (value) => {
   if (!value || typeof value !== "string") {
     return "";

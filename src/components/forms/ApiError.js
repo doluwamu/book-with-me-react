@@ -1,5 +1,6 @@
 import React from "react";
 
+// Function to display server errors
 const ApiError = ({ errors }) => {
   return (
     <>

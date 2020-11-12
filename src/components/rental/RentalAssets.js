@@ -1,6 +1,8 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+
+// Function to display additional benefits of a certain rentals
 const RentalAssets = () => {
   return (
     <div className="rental-assets">
