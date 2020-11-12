@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
+// Function to show list of bookings 
 const BookingListing = ({bookings, type}) => {
     return (
         <section className="booking-listing">
