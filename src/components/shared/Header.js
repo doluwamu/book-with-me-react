@@ -59,6 +59,15 @@ const Header = ({isAuth, username, logout}) => {
                   <Link className="dropdown-item" to="/rentals/new">
                     New Rental
                   </Link>
+                  <Link className="dropdown-item" to="/rentals/manage">
+                    Manage Rentals
+                  </Link>
+                  <Link className="dropdown-item" to="/bookings/manage">
+                    Manage Bookings
+                  </Link>
+                  <Link className="dropdown-item" to="/bookings/received">
+                    Received bookings
+                  </Link>
                 </div>
               </li>
               <li className="nav-item" onClick={logout}>

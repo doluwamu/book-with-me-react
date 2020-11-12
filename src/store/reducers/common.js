@@ -1,4 +1,21 @@
+import { combineReducers } from "redux";
 
+
+export const itemReducer = resource => {
+    return (state = [], action) => {
+        if (resource !== action.resource) {
+            return state
+        }
+        switch (action.type) {
+            case "REQUEST_DATA":
+                return [];
+            case "REQUEST_DATA_COMPLETE":
+                return action.data;
+            default:
+                return state;
+        }
+    }
+}
 
 export const isFetchingReducer = (resource) => {
     return (state = false, action) => {
@@ -12,6 +29,16 @@ export const isFetchingReducer = (resource) => {
                 return false;
             default:
                 return state;
-            }
+        }
     }
+}
+
+export const createList = resource => {
+    const items = itemReducer(resource);
+    const isFetching = isFetchingReducer(resource)
+
+    return combineReducers({
+        items,
+        isFetching
+    })
 }

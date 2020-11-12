@@ -15,6 +15,20 @@ export const fetchRentals = (location) => (dispatch) => {
       });
     });
   };
+
+  export const fetchUserRentals = () => dispatch => {
+    dispatch({type: "REQUEST_DATA", resource: 'manage-rentals'});
+    return bwmAxios.get('/rentals/me')
+    .then(res => res.data)
+    .then(rentals => {
+      dispatch({
+        type: 'REQUEST_DATA_COMPLETE',
+        data: rentals,
+        resource: 'manage-rentals'
+      })
+    })
+  }
+
   
   // Action to fetch certain rental by id
   export const fetchRentalById = (rentalId) => async (dispatch) => {

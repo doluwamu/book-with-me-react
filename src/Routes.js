@@ -10,6 +10,9 @@ import AuthRoute from "components/auth/AuthRoute";
 import GuestRoute from "components/auth/GuestRoute";
 import RentalNew from "pages/RentalNew";
 import RentalHomeSearch from "pages/RentalHomeSearch";
+import ManageBookings from "pages/ManageBookings";
+import ManageRentals from "pages/ManageRentals";
+import RecievedBookings from "pages/RecievedBookings";
 
 const Routes = () => {
   return (
@@ -19,6 +22,18 @@ const Routes = () => {
         <Route path="/" exact={true}>
           <RentalHome />
         </Route>
+
+        <AuthRoute path="/bookings/manage">
+          <ManageBookings />
+        </AuthRoute>
+
+        <AuthRoute path="/rentals/manage">
+          <ManageRentals />
+        </AuthRoute>
+
+        <AuthRoute path="/bookings/received">
+          <RecievedBookings />
+        </AuthRoute>
 
         <Route path="/rentals/:location/homes">
           <RentalHomeSearch />

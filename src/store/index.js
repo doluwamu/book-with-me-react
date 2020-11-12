@@ -3,12 +3,14 @@ import thunk from "redux-thunk";
 import rentals from "./reducers/rentals";
 import rental from "./reducers/rental";
 import auth from "./reducers/auth";
+import manage from "./reducers/manage";
 
 export const initStore = () => {
   const reducers = combineReducers({
     rentals,
     rental,
-    auth
+    auth,
+    manage
   });
 
   const composeEnhancers =
