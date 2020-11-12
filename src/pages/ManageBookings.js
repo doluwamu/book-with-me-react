@@ -1,11 +1,27 @@
 import React, { Component } from 'react'
+import BookingListing from 'components/booking/BookingListing'
+import { connect } from 'react-redux'
+import { fetchUserBookings } from 'actions'
 
 class ManageBookings extends Component {
+
+    componentDidMount(){
+        this.props.dispatch(fetchUserBookings())
+    }
+
     render() {
+        const { bookings } = this.props;
         return (
-            <h1>Manage bookings</h1>
+            <BookingListing bookings={bookings} />
         )
     }
 }
 
-export default ManageBookings
+const mapStateToProps = ({manage}) => {
+    return{
+        bookings: manage.bookings.items,
+        isFetching: manage.bookings.isFetching
+    }
+}
+
+export default connect(mapStateToProps)(ManageBookings)

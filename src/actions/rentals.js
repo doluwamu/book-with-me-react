@@ -30,6 +30,8 @@ export const fetchRentals = (location) => (dispatch) => {
   }
 
   
+
+  
   // Action to fetch certain rental by id
   export const fetchRentalById = (rentalId) => async (dispatch) => {
     dispatch({ type: "REQUEST_DATA", resource: 'rental'});
