@@ -37,6 +37,7 @@ const BwmApp = () => {
   )
 }
 
+// Function for app
 const App = () => {
   return (
     <Providers>
