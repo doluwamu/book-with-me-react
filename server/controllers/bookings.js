@@ -15,16 +15,19 @@ exports.getBookings = async (req, res) => {
   }
 }
 
-exports.getReceivedBookings = async(req, res) => {
-  const { user } = res.locals
+exports.getReceivedBookings = async (req, res) => {
+  const { user } = res.locals;
 
-  try{
-    const rental = await Rental.find({owner: user}, '_id')
-    const rentalIds = rental.map(r => r.id);
-    const bookings = await Booking.find({rental: {$in: rentalIds}})
-    return res.json(bookings)
-  }catch(error) {
-    return res.mongoError(error)
+  try {
+    const rentals = await Rental.find({owner: user}, '_id');
+    const rentalIds = rentals.map(r => r.id);
+    const bookings = await Booking
+                            .find({rental: { $in: rentalIds}})
+                            .populate('user', '-password')
+                            .populate('rental');
+    return res.json(bookings);
+  } catch(error) {
+    return res.mongoError(error);
   }
 }
 
