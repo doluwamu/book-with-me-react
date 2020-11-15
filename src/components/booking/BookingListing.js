@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { capitalize, formatDate } from 'helpers/functions'
 
 // Function to show list of bookings 
-const BookingListing = ({bookings, type}) => {
+const BookingListing = ({bookings, type, title = "Bookings"}) => {
     return (
         <section className="booking-listing">
-            <h1 className="page-title">Page Title</h1>
+            <h1 className="page-title">{title}</h1>
             <div className="row">
                 { bookings && bookings.map(booking => 
                 
@@ -15,7 +15,7 @@ const BookingListing = ({bookings, type}) => {
                         {/* Only if 'received' booking */}
                         { type === 'received' &&
                             <div className="card-header">
-                                From: Some User
+                                From: {booking.user.username}
                             </div>
                         }
                         {/* Only if 'received' booking END */}

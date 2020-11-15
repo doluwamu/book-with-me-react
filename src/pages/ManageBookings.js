@@ -12,7 +12,7 @@ class ManageBookings extends Component {
     render() {
         const { bookings } = this.props;
         return (
-            <BookingListing bookings={bookings} />
+            <BookingListing bookings={bookings} title={"My Bookings"} />
         )
     }
 }
