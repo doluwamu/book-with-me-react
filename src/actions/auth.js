@@ -6,7 +6,7 @@ const { bwmAxios } = axiosService;
 export const registerUser = (registerData) => {
     return bwmAxios
       .post("/users/register", registerData)
-      .catch((error) => Promise.reject(extractApiErrors(error.response || {})));
+      .catch((error) => Promise.reject(extractApiErrors(error.response || [])));
   };
   
   // Action to login user
@@ -14,7 +14,7 @@ export const registerUser = (registerData) => {
     return bwmAxios
       .post("/users/login", loginData)
       .then((res) => res.data)
-      .catch((error) => Promise.reject(extractApiErrors(error.response || {})));
+      .catch((error) => Promise.reject(extractApiErrors(error.response || [])));
   };
   
   // Action to get user name from DB if the user is authenticated

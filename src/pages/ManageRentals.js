@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { fetchUserRentals } from 'actions';
+import { deleteRental, fetchUserRentals } from 'actions';
 import { connect } from 'react-redux';
 import RentalCard from 'components/rental/RentalCard';
 
@@ -9,10 +9,30 @@ class ManageRentals extends Component {
         this.props.dispatch(fetchUserRentals());
     }
 
+    deleteRental = (rentalId) => {
+        const canDelete = this.askForPermision();
+        if(!canDelete){ return }
+        
+        this.props.dispatch(deleteRental(rentalId))
+    }
+
+    askForPermision = () => {
+        return window.confirm('Are you sure you want to delete this rental?')
+    }
+
     renderRental = (rentals) =>
         rentals.map((rental) => (
             <div className="col-md-3" key={rental._id}>
-                <RentalCard rental={rental} />
+                <RentalCard 
+                    rental={rental}
+                    renderMenu={() =>
+                        <> 
+                            <button 
+                                onClick={() => this.deleteRental(rental._id)}
+                                className="btn btn-danger">Delete</button> 
+                        </>
+                    } 
+                />
             </div>
         )
     );

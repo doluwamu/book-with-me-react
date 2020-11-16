@@ -1,5 +1,8 @@
 .navbar {
   padding: 10px 30px;
+  z-index: 111;
+  position: sticky;
+  top: 0;
 
   .navbar-brand {
     margin-right: 30px;

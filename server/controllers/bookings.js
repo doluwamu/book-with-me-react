@@ -98,7 +98,7 @@ exports.createBooking = async (req, res) => {
         } else{
             return res.sendApiError({
                 title: "Invalid Booking",
-                detail: "Chosen dates are already taken",
+                detail: "Ooops, booking may contain already booked out dates!",
             });
         }
     }
