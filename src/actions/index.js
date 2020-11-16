@@ -31,6 +31,7 @@ export const deleteResource = ({url, resource}) => dispatch => {
   })
 }
 
+
 // All actions
 export * from './auth';
 export * from './rentals'

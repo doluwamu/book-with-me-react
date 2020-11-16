@@ -1,4 +1,4 @@
-import { extractApiErrors } from './index';
+import { deleteResource, extractApiErrors } from './index';
 import axiosService from "services/AxiosService";
 const { bwmAxios } = axiosService;
 
