@@ -13,6 +13,7 @@ import RentalHomeSearch from "pages/RentalHomeSearch";
 import ManageBookings from "pages/ManageBookings";
 import ManageRentals from "pages/ManageRentals";
 import RecievedBookings from "pages/RecievedBookings";
+import RentalEdit from "pages/RentalEdit";
 
 const Routes = () => {
   return (
@@ -41,6 +42,10 @@ const Routes = () => {
 
         <AuthRoute path="/rentals/new">
           <RentalNew />
+        </AuthRoute>
+
+        <AuthRoute path="/rentals/:id/edit">
+          <RentalEdit />
         </AuthRoute>
 
         <Route path="/rentals/:id">
