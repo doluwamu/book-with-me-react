@@ -1,5 +1,5 @@
-import axiosService from "services/AxiosService";
 import { extractApiErrors } from './index';
+import axiosService from "services/AxiosService";
 const { bwmAxios } = axiosService;
 
 // Action to create a booking
@@ -39,4 +39,8 @@ export const fetchReceivedBookings = () => dispatch => {
 export const getBookings = rentalId => {
     return bwmAxios.get(`/bookings?rental=${rentalId}`)
     .then(res => res.data)
+}
+
+export const deleteBooking = bookingId => dispatch => {
+  return dispatch(deleteResource({url: `/bookings/${bookingId}`, resource: "manage-bookings"}))
 }

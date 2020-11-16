@@ -10,9 +10,15 @@ class ReceivedBookings extends Component {
     }
 
     render() {
-        const { bookings } = this.props;
+        const { bookings, isFetching, errors } = this.props;
         return (
-            <BookingListing bookings={bookings} title={"Received Bookings"} type={"received"} />
+            <BookingListing 
+                bookings={bookings} 
+                title={"Received Bookings"} 
+                type={"received"} 
+                isFetching={isFetching}
+                errors={errors}
+            />
         )
     }
 }
@@ -20,7 +26,8 @@ class ReceivedBookings extends Component {
 const mapStateToProps = ({manage}) => {
     return{
         bookings: manage.receivedBookings.items,
-        isFetching: manage.receivedBookings.isFetching
+        isFetching: manage.receivedBookings.isFetching,
+        errors: manage.receivedBookings.errors
     }
 }
 

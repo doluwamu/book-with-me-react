@@ -1,4 +1,7 @@
 
+import axiosService from "services/AxiosService";
+const { bwmAxios } = axiosService;
+
 // Function to get server errors while performing an action
 export const extractApiErrors = (resError) => {
   let errors = [{ title: "Errors!", detail: "Ooops!, something went wrong" }];
@@ -8,6 +11,25 @@ export const extractApiErrors = (resError) => {
   }
   return errors;
 };
+
+export const deleteResource = ({url, resource}) => dispatch => {
+  return bwmAxios.delete(url)
+  .then(res => res.data)
+  .then(({id}) => {
+    dispatch({
+      type: "DELETE_RESOURCE",
+      id,
+      resource
+    })
+  })
+  .catch(error => {
+    dispatch({
+      type: "REQUEST_ERROR",
+      errors: extractApiErrors(error.response || []),
+      resource
+    })
+  })
+}
 
 // All actions
 export * from './auth';

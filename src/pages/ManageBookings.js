@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import BookingListing from 'components/booking/BookingListing'
 import { connect } from 'react-redux'
-import { fetchUserBookings } from 'actions'
+import { deleteBooking, fetchUserBookings } from 'actions'
 
 class ManageBookings extends Component {
 
@@ -9,11 +9,11 @@ class ManageBookings extends Component {
         this.props.dispatch(fetchUserBookings())
     }
 
-    deleteBooking = (bookingId) => {
+    deleteABooking = (bookingId) => {
         const canDelete = this.askForPermision();
         if(!canDelete){ return }
         
-        alert(`Deleting booking with id ${bookingId}`)
+        this.props.dispatch(deleteBooking(bookingId))
     }
 
     askForPermision = () => {
@@ -21,15 +21,17 @@ class ManageBookings extends Component {
     }
 
     render() {
-        const { bookings } = this.props;
+        const { bookings, errors, isFetching } = this.props;
         return (
             <BookingListing 
             bookings={bookings} 
             title={"My Bookings"} 
-            renderMenu={() =>
+            errors={errors}
+            isFetching={isFetching}
+            renderMenu={(bookingId) =>
                 <> 
                     <button 
-                        onClick={() => this.deleteBooking()}
+                        onClick={() => this.deleteABooking(bookingId)}
                         className="btn btn-danger">Delete</button> 
                 </>
             } 
@@ -41,7 +43,8 @@ class ManageBookings extends Component {
 const mapStateToProps = ({manage}) => {
     return{
         bookings: manage.bookings.items,
-        isFetching: manage.bookings.isFetching
+        isFetching: manage.bookings.isFetching,
+        errors: manage.bookings.errors
     }
 }
 
