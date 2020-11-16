@@ -63,6 +63,25 @@ exports.getRentalById = async(req, res) => {
   }
 }
 
+exports.verifyUser = async (req, res) =>{
+  const { user } = res.locals
+  const { rentalId } = req.params;
+
+  try {
+    const rental = await Rental.findById(rentalId).populate('owner', '-password')
+    if(rental.owner.id !== user.id){
+      return res.sendApiError(
+        { title: 'Invalid User', 
+          detail: 'You are not owner of this rental!'});
+    }
+
+    return res.json({status: 'verified'})
+
+  } catch (error) {
+    return res.mongoError(error);
+  }
+}
+
 exports.createRental = (req, res) => {
   const rentalData = req.body;
   rentalData.owner = res.locals.user;
@@ -74,6 +93,31 @@ exports.createRental = (req, res) => {
     return res.json({createdRental});
   });
 };
+
+
+exports.updateRental = async(req, res) => {
+  const { rentalId } = req.params
+  const rentalData = req.body
+  const {user} = res.locals
+
+  try {
+    const rental = await Rental.findById(rentalId).populate('owner', '-password');
+
+    if(rental.owner.id !== user.id){
+      return res.sendApiError(
+        { title: 'Invalid User', 
+          detail: 'You are not owner of this rental!'});
+    }
+
+    rental.set(rentalData)
+    await rental.save()
+    return res.status(200).send(rental)
+
+  } catch (error) {
+    return res.mongoError(error);
+  }
+
+}
 
 
 // middlewares
