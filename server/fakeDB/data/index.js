@@ -9,7 +9,7 @@ exports.users = [
     _id: user1Id,
     username: "Test user",
     email: "test@gmail.com",
-    password: "testtest1",
+    password: "testingtest",
   },
   {
     _id: user2Id,

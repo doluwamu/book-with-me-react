@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { capitalize, formatDate } from 'helpers/functions'
 
 // Function to show list of bookings 
-const BookingListing = ({bookings, type, title = "Bookings"}) => {
+const BookingListing = ({bookings, type, title = "Bookings", renderMenu}) => {
     return (
         <section className="booking-listing">
             <h1 className="page-title">{title}</h1>
@@ -25,9 +25,9 @@ const BookingListing = ({bookings, type, title = "Bookings"}) => {
                             </p>
                             <p className="card-text"><span>Price: </span> <span className="booking-price-value">${booking.price}</span></p>
                             <Link to={{pathname: `/rentals/${booking.rental._id}`}} className="btn btn-bwm-main">Go to Rental</Link>
-                            <button
-                                className="ml-1 btn btn-danger">Delete
-                            </button>
+                            { renderMenu &&
+                                renderMenu()
+                            }
                             </div>
                             <div className="card-footer text-muted">
                             Created at {formatDate(booking.createdAt)}

@@ -28,7 +28,7 @@ const TomMap = ({ location }) => {
 
     useEffect(() => {
         map.current = initMap()
-    }, [initMap])
+    }, [map, initMap])
 
     return <div id="bwm-map"></div>
 }

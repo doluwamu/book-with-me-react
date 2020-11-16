@@ -47,9 +47,9 @@ export class RentalHome extends Component {
             <div className="card-list">
                 <h1 className="page-title">Your Home in "{capitalize(this.location)}"</h1>
                 <div className="row">{this.renderRental(rentals)}</div>
-                { this.noRentalsFound &&
-                    <p className='alert alert-warning'>No rentals found for this search!</p>
-                }
+            { this.noRentalsFound &&
+                <p className='alert alert-warning'>No rentals found for this search!</p>
+            }
             </div>
         );
     }
