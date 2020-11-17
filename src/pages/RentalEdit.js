@@ -1,12 +1,35 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchRentalById } from "actions";
+import { fetchRentalById, verifyRentalOwner } from "actions";
 import RentalInfo from "components/rental/RentalInfo";
 import TomMap from "components/map/TomMap";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+
+const withUerCheck = Component => props => {
+    const [guard, setGuard] = useState({canProceed: false, isChecking: true})
+    const { id } = props.match.params;
+
+    useEffect(() => {
+        verifyRentalOwner(id)
+        .then(_ => setGuard({canProceed: true, isChecking: false}))
+        .catch(_ => setGuard({canProceed: false, isChecking: false}))
+    }, [id])
+
+    const { canProceed, isChecking } = guard;
+    if(!isChecking && canProceed) {
+        return <Component  {...props}/>
+    } else if(!isChecking  && !canProceed) {
+        return <Redirect to={{pathname: '/'}} />
+    } else {
+        return <h1>Loading...</h1>
+    }
+}
+
 
 // Rental details page component
 class RentalEdit extends Component {
+
     componentDidMount() {
         const { id } = this.props.match.params;
         this.props.dispatch(fetchRentalById(id));
@@ -60,6 +83,6 @@ const mapStateToProps = ({ rental, auth: {isAuth} }) => ({
     isAuth
 });
 
-const RentalEditWithRouter = withRouter(RentalEdit);
+const RentalEditWithRouterAndCheck = withRouter(withUerCheck(RentalEdit));
 
-export default connect(mapStateToProps)(RentalEditWithRouter);
+export default connect(mapStateToProps)(RentalEditWithRouterAndCheck);

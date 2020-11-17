@@ -3,6 +3,10 @@ import { deleteResource } from "actions";
 import axiosService from "services/AxiosService";
 const { bwmAxios } = axiosService;
 
+export const verifyRentalOwner = (rentalId) => {
+  return bwmAxios.get(`/rentals/${rentalId}/verify-user`);
+}
+
 // Action to fetch all rentals
 export const fetchRentals = (location) => (dispatch) => {
   const query = location ? `/rentals?city=${location}` : "/rentals"
