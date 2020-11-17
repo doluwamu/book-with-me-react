@@ -24,12 +24,13 @@ class RentalEdit extends Component {
 
 
     render() {
-        const { rental, isFetching, isAuth } = this.props;
+        const { rental, isFetching } = this.props;
         if (isFetching || !rental._id) {
         return <h3>Loading...</h3>;
         }
         return (
         <section id="rentalDetails">
+            <h1>Rental Edit</h1>
             <div className="upper-section">
             <div className="row">
                 <div className="col-md-6">
@@ -43,7 +44,6 @@ class RentalEdit extends Component {
 
             <div className="details-section">
             <div className="row">
-            <h1>Rental Edit</h1>
                 <div className="col-md-8">
                 <RentalInfo rental={rental} />
                 </div>
