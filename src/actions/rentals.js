@@ -1,5 +1,5 @@
 
-import { deleteResource } from "actions";
+import { deleteResource, extractApiErrors } from "actions";
 import axiosService from "services/AxiosService";
 const { bwmAxios } = axiosService;
 
@@ -52,16 +52,15 @@ export const fetchRentals = (location) => (dispatch) => {
   };
 
   export const updateRental = (id, rentalData) => dispatch => {
-    return Promise.reject()
-    // return bwmAxios.patch(`/rentals/${id}`, rentalData)
-    // .then(res => res.data)
-    // .then(updatedRental => 
-    //   dispatch({
-    //     type: 'UPDATE_RENTAL_SUCCESS',
-    //     rental: updatedRental
-    //   })
-    // )
-    // .catch(error => Promise.reject(extractApiErrors(error)))
+    return bwmAxios.patch(`/rentals/${id}`, rentalData)
+    .then(res => res.data)
+    .then(updatedRental => 
+      dispatch({
+        type: 'UPDATE_RENTAL_SUCCESS',
+        rental: updatedRental
+      })
+    )
+    .catch((error) => Promise.reject(extractApiErrors(error.response || [])));
   }
 
   export const deleteRental = rentalId => dispatch => {

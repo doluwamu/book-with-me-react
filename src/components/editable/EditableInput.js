@@ -17,11 +17,10 @@ export class EditableInput extends Component {
         const { onUpdate, field } = this.props
 
         if(value !== originValue) {
-            onUpdate({[field]: value})
-            .then(() => {
-                this.setState({isActiveInput: false, originValue: value})
-            })
-            .catch(() => this.setState({isActiveInput: false, value: originValue}))
+            onUpdate(
+                {[field]: value}, 
+                () => this.setState({isActiveInput: false, originValue: value}), 
+                () => this.setState({isActiveInput: false, value: originValue}))
         }
     }
 
@@ -40,7 +39,7 @@ export class EditableInput extends Component {
             return(
                 <>
                 <input
-                    className={className}
+                    className={`${className} editable-item`}
                     value={value}
                     onChange={this.handleChange}
                 />
@@ -54,7 +53,10 @@ export class EditableInput extends Component {
 
         return(
             <>
-            <span className={className}>{value}</span>
+            <span 
+                className={`${className} editable-item`}
+            >
+                {value}</span>
             <div className='button-container'>
                 <button className="btn btn-warning btn-editable" onClick={this.activateInput}>Edit</button>
             </div>

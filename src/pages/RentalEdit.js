@@ -7,6 +7,8 @@ import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import RentalAssets from "components/rental/RentalAssets";
 import { capitalize } from "helpers/functions";
 import EditableInput from "components/editable/EditableInput";
+import { toast } from 'react-toastify';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const withUerCheck = Component => props => {
     const [guard, setGuard] = useState({canProceed: false, isChecking: true})
@@ -41,9 +43,19 @@ class RentalEdit extends Component {
         this.props.dispatch({type: 'UNMOUNT_RENTAL'})
     }
 
-    updateRental = rentalData => {
+    updateRental = (rentalData, onSuccess, onError) => {
         const { id } = this.props.match.params;
         return this.props.dispatch(updateRental(id, rentalData))
+        .then(() => {
+            onSuccess()
+        })
+        .catch(errors => {
+            const message = errors.length > 0 ? errors[0].detail : 'Ooops, something went wrong!'
+            toast.error(message, {
+                autoClose: 3000
+            });
+            onError()
+        })
     }
 
     get location() {
@@ -75,36 +87,38 @@ class RentalEdit extends Component {
             <div className="row">
                 <div className="col-md-8">
                 <div className="rental">
-                    {/* <!-- TODO: Display shared category --> */}
                     <h2 className={`rental-type type-${rental.category}`}>
                         {rental.shared ? "Shared" : "Whole"} {rental.category}
                     </h2>
-                    {/* <!-- TODO: Display title --> */}
-                    {/* <h1 className="rental-title">{rental.title}</h1> */}
                     <EditableInput 
                         entity={rental}
                         field={'title'}
                         className={'rental-title'}
                         onUpdate={this.updateRental}
                     />
-                    {/* <!-- TODO: Display city --> */}
-                    <h2 className="rental-city">{capitalize(rental.city)}</h2>
+                    <EditableInput 
+                        entity={rental}
+                        field={'city'}
+                        className={'rental-city'}
+                        onUpdate={this.updateRental}
+                    />
+                    <EditableInput 
+                        entity={rental}
+                        field={'street'}
+                        className={'rental-street'}
+                        onUpdate={this.updateRental}
+                    />
                     <div className="rental-room-info">
-                        {/* <!-- TODO: Display numOfRooms --> */}
                         <span>
-                        <i className="fa fa-building"></i>
-                        {rental.numOfRooms} bedroom(s)
+                            <FontAwesomeIcon icon="building"/> {rental.numOfRooms} bedroom(s)
                         </span>
-                        {/* // <!-- TODO: Display numOfRooms + 4 --> */}
                         <span>
-                        <i className="fa fa-user"></i> {rental.numOfRooms + 4} guests
+                            <FontAwesomeIcon icon="user"/> {rental.numOfRooms + 4} guests
                         </span>
-                        {/* // <!-- TODO: Display numOfRooms + 2 --> */}
                         <span>
-                        <i className="fa fa-bed"></i> {rental.numOfRooms + 2} beds
+                        <FontAwesomeIcon icon="bed" /> {rental.numOfRooms + 2} beds
                         </span>
                     </div>
-                    {/* <!-- TODO: Display description --> */}
                     <p className="rental-description">{rental.description}</p>
                     <hr />
 
