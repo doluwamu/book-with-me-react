@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchRentalById, verifyRentalOwner } from "actions";
+import { fetchRentalById, updateRental, verifyRentalOwner } from "actions";
 import TomMap from "components/map/TomMap";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import RentalAssets from "components/rental/RentalAssets";
@@ -42,7 +42,8 @@ class RentalEdit extends Component {
     }
 
     updateRental = rentalData => {
-        alert(`Updating ${JSON.stringify(rentalData)}`)
+        const { id } = this.props.match.params;
+        return this.props.dispatch(updateRental(id, rentalData))
     }
 
     get location() {

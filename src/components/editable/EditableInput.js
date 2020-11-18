@@ -18,8 +18,10 @@ export class EditableInput extends Component {
 
         if(value !== originValue) {
             onUpdate({[field]: value})
-
-            this.setState({isActiveInput: false, originValue: value})
+            .then(() => {
+                this.setState({isActiveInput: false, originValue: value})
+            })
+            .catch(() => this.setState({isActiveInput: false, value: originValue}))
         }
     }
 

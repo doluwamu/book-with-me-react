@@ -51,6 +51,18 @@ export const fetchRentals = (location) => (dispatch) => {
     return bwmAxios.post('/rentals', rental)
   };
 
+  export const updateRental = (id, rentalData) => dispatch => {
+    return Promise.reject()
+    // return bwmAxios.patch(`/rentals/${id}`, rentalData)
+    // .then(res => res.data)
+    // .then(updatedRental => 
+    //   dispatch({
+    //     type: 'UPDATE_RENTAL_SUCCESS',
+    //     rental: updatedRental
+    //   })
+    // )
+    // .catch(error => Promise.reject(extractApiErrors(error)))
+  }
 
   export const deleteRental = rentalId => dispatch => {
     return dispatch(deleteResource({url: `/rentals/${rentalId}`, resource: "manage-rentals"}))
