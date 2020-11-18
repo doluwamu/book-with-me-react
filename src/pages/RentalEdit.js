@@ -2,9 +2,11 @@ import React, { Component, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchRentalById, verifyRentalOwner } from "actions";
-import RentalInfo from "components/rental/RentalInfo";
 import TomMap from "components/map/TomMap";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import RentalAssets from "components/rental/RentalAssets";
+import { capitalize } from "helpers/functions";
+import EditableInput from "components/editable/EditableInput";
 
 const withUerCheck = Component => props => {
     const [guard, setGuard] = useState({canProceed: false, isChecking: true})
@@ -19,10 +21,10 @@ const withUerCheck = Component => props => {
     const { canProceed, isChecking } = guard;
     if(!isChecking && canProceed) {
         return <Component  {...props}/>
-    } else if(!isChecking  && !canProceed) {
+    } else if(!isChecking && !canProceed) {
         return <Redirect to={{pathname: '/'}} />
     } else {
-        return <h1>Loading...</h1>
+        return <h3>Loading...</h3>
     }
 }
 
@@ -68,7 +70,43 @@ class RentalEdit extends Component {
             <div className="details-section">
             <div className="row">
                 <div className="col-md-8">
-                <RentalInfo rental={rental} />
+                <div className="rental">
+                    {/* <!-- TODO: Display shared category --> */}
+                    <h2 className={`rental-type type-${rental.category}`}>
+                        {rental.shared ? "Shared" : "Whole"} {rental.category}
+                    </h2>
+                    { rental.owner &&
+                        <div className="rental-owner">
+                        <img src="/images/avatar.png" alt="owner"/>
+                        <span>{rental.owner.username}</span>
+                        </div>
+                    }
+                    {/* <!-- TODO: Display title --> */}
+                    {/* <h1 className="rental-title">{rental.title}</h1> */}
+                    <EditableInput />
+                    {/* <!-- TODO: Display city --> */}
+                    <h2 className="rental-city">{capitalize(rental.city)}</h2>
+                    <div className="rental-room-info">
+                        {/* <!-- TODO: Display numOfRooms --> */}
+                        <span>
+                        <i className="fa fa-building"></i>
+                        {rental.numOfRooms} bedroom(s)
+                        </span>
+                        {/* // <!-- TODO: Display numOfRooms + 4 --> */}
+                        <span>
+                        <i className="fa fa-user"></i> {rental.numOfRooms + 4} guests
+                        </span>
+                        {/* // <!-- TODO: Display numOfRooms + 2 --> */}
+                        <span>
+                        <i className="fa fa-bed"></i> {rental.numOfRooms + 2} beds
+                        </span>
+                    </div>
+                    {/* <!-- TODO: Display description --> */}
+                    <p className="rental-description">{rental.description}</p>
+                    <hr />
+
+                    <RentalAssets />
+                    </div>
                 </div>
             </div>
             </div>
