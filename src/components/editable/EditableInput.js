@@ -65,9 +65,9 @@ export class EditableInput extends Component {
     }
 
     render() {
-        
+        const {inline} = this.props
         return (
-            <div className="editable-component">
+            <div className={`editable-component ${inline ? 'editable-component-inline' : ''}`}>
                 {this.renderComponentView()}
             </div>
         )

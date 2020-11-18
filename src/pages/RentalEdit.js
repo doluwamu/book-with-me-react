@@ -112,7 +112,15 @@ class RentalEdit extends Component {
                     />
                     <div className="rental-room-info">
                         <span>
-                            <FontAwesomeIcon icon="building"/> {rental.numOfRooms} bedroom(s)
+                            <FontAwesomeIcon icon="building"/> 
+                            <EditableInput 
+                                entity={rental}
+                                field={'numOfRooms'}
+                                className={'mr-0 ml-2'}
+                                onUpdate={this.updateRental}
+                                inline={true}
+                            />
+                            bedroom(s)
                         </span>
                         <span>
                             <FontAwesomeIcon icon="user"/> {rental.numOfRooms + 4} guests
