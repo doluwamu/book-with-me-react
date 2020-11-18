@@ -41,6 +41,10 @@ class RentalEdit extends Component {
         this.props.dispatch({type: 'UNMOUNT_RENTAL'})
     }
 
+    updateRental = rentalData => {
+        alert(`Updating ${JSON.stringify(rentalData)}`)
+    }
+
     get location() {
         const {rental:{ street, city }} = this.props
         return street && city && city + ', ' + street
@@ -55,7 +59,6 @@ class RentalEdit extends Component {
         }
         return (
         <section id="rentalDetails">
-            <h1>Rental Edit</h1>
             <div className="upper-section">
             <div className="row">
                 <div className="col-md-6">
@@ -75,15 +78,14 @@ class RentalEdit extends Component {
                     <h2 className={`rental-type type-${rental.category}`}>
                         {rental.shared ? "Shared" : "Whole"} {rental.category}
                     </h2>
-                    { rental.owner &&
-                        <div className="rental-owner">
-                        <img src="/images/avatar.png" alt="owner"/>
-                        <span>{rental.owner.username}</span>
-                        </div>
-                    }
                     {/* <!-- TODO: Display title --> */}
                     {/* <h1 className="rental-title">{rental.title}</h1> */}
-                    <EditableInput />
+                    <EditableInput 
+                        entity={rental}
+                        field={'title'}
+                        className={'rental-title'}
+                        onUpdate={this.updateRental}
+                    />
                     {/* <!-- TODO: Display city --> */}
                     <h2 className="rental-city">{capitalize(rental.city)}</h2>
                     <div className="rental-room-info">

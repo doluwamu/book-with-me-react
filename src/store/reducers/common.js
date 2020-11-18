@@ -37,7 +37,7 @@ export const errorsReducer = resource => {
     }
 }
 
-export const isFetchingReducer = (resource) => {
+export const isFetchingReducer = resource => {
     return (state = false, action) => {
         if (resource !== action.resource) {
             return state
