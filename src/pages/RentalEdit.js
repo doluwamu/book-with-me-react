@@ -100,12 +100,14 @@ class RentalEdit extends Component {
                         entity={rental}
                         field={'city'}
                         className={'rental-city'}
+                        transformView={value => capitalize(value)}
                         onUpdate={this.updateRental}
                     />
                     <EditableInput 
                         entity={rental}
                         field={'street'}
                         className={'rental-street'}
+                        transformView={value => capitalize(value)}
                         onUpdate={this.updateRental}
                     />
                     <div className="rental-room-info">

@@ -34,7 +34,7 @@ export class EditableInput extends Component {
 
     renderComponentView = () => {
         const { value, isActiveInput } = this.state
-        const { className } = this.props
+        const { className, transformView } = this.props
         if(isActiveInput){
             return(
                 <>
@@ -56,7 +56,7 @@ export class EditableInput extends Component {
             <span 
                 className={`${className} editable-item`}
             >
-                {value}</span>
+                {transformView ? transformView(value) : value}</span>
             <div className='button-container'>
                 <button className="btn btn-warning btn-editable" onClick={this.activateInput}>Edit</button>
             </div>
