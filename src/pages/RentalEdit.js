@@ -89,12 +89,14 @@ class RentalEdit extends Component {
             <div className="row">
                 <div className="col-md-8">
                 <div className="rental">
+                    <span className="rental-city">Is shared: </span>
                     <EditableSelect 
                         entity={rental}
                         field={'shared'}
                         options={[true, false]}
                         className={`rental-type type-${rental.category}`}
                         onUpdate={this.updateRental}
+                        inline={true}
                     />
                     <EditableSelect 
                         entity={rental}
