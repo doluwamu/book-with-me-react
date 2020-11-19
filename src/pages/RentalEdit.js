@@ -9,6 +9,7 @@ import { capitalize } from "helpers/functions";
 import EditableInput from "components/editable/EditableInput";
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import EditableTextarea from "components/editable/EditableTextarea";
 
 const withUerCheck = Component => props => {
     const [guard, setGuard] = useState({canProceed: false, isChecking: true})
@@ -129,7 +130,15 @@ class RentalEdit extends Component {
                         <FontAwesomeIcon icon="bed" /> {rental.numOfRooms + 2} beds
                         </span>
                     </div>
-                    <p className="rental-description">{rental.description}</p>
+                    <EditableTextarea
+                        entity={rental}
+                        field={'description'}
+                        className={'rental-description'}
+                        onUpdate={this.updateRental}
+                        rows={5}
+                        cols={50}
+                    />
+                    {/* <p className="rental-description">{rental.description}</p> */}
                     <hr />
 
                     <RentalAssets />
