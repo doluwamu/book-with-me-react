@@ -6,11 +6,9 @@ import TomMap from "components/map/TomMap";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import RentalAssets from "components/rental/RentalAssets";
 import { capitalize } from "helpers/functions";
-import EditableInput from "components/editable/EditableInput";
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import EditableTextarea from "components/editable/EditableTextarea";
-import EditableSelect from "components/editable/EditableSelect";
+import { EditableInput, EditableSelect, EditableTextarea } from "components/editable";
 
 const withUerCheck = Component => props => {
     const [guard, setGuard] = useState({canProceed: false, isChecking: true})
@@ -90,7 +88,7 @@ class RentalEdit extends Component {
                 <div className="col-md-8">
                 <div className="rental">
                     <span className="rental-city">Is shared: </span>
-                    <EditableSelect 
+                    <EditableSelect
                         entity={rental}
                         field={'shared'}
                         options={[true, false]}

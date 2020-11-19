@@ -14,8 +14,9 @@ export class EditableSelect extends Component {
         return(
             <EditableComponent 
                 {...this.props}
-                renderComponent={(value, onChange) => 
+                renderComponent={(value, onChange, onKeyDown) => 
                     <select
+                        onKeyDown={onKeyDown}
                         className={`${className} editable-item`}
                         value={value}
                         onChange={onChange}
@@ -28,5 +29,4 @@ export class EditableSelect extends Component {
     }
 }
 
-export default EditableSelect
 

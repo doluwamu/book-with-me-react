@@ -32,13 +32,21 @@ export class EditableComponent extends Component {
         this.setState({value: event.target.value})
     }
 
+    handleKeyDown = (event) => {
+        if(event.key === 'Enter') {
+            this.update()
+        } else if (event.key === 'Escape') {
+            this.disableInput()
+        }
+    }
+
     renderComponentView = () => {
         const { value, isActiveInput } = this.state
         const { className, transformView, renderComponent } = this.props
         if(isActiveInput){
             return(
                 <>
-                {renderComponent(value, this.handleChange)}
+                {renderComponent(value, this.handleChange, this.handleKeyDown)}
                 <div className='button-container'>
                     <button className="btn btn-success btn-editable" onClick={this.update}>Save</button>
                     <button className="btn btn-danger btn-editable" onClick={this.disableInput}>Cancel</button>

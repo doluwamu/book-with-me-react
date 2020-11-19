@@ -8,16 +8,16 @@ export class EditableInput extends Component {
         return(
             <EditableComponent 
                 {...this.props}
-                renderComponent={(value, onChange) => 
+                renderComponent={(value, onChange, onKeyDown) => 
                     <input
-                    value={value}
-                    onChange={onChange}
-                    className={`${this.props.className} editable-item`}
-                />
+                        onKeyDown={onKeyDown}
+                        value={value}
+                        onChange={onChange}
+                        className={`${this.props.className} editable-item`}
+                    />
                 }
             />
         )
     }
 }
 
-export default EditableInput

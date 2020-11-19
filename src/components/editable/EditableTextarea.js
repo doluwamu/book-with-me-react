@@ -10,8 +10,9 @@ export class EditableTextarea extends Component {
         return(
             <EditableComponent 
                 {...this.props}
-                renderComponent={(value, onChange) => 
+                renderComponent={(value, onChange, onKeyDown) => 
                     <textarea
+                        onKeyDown={onKeyDown}
                         className={`${className} editable-item`}
                         value={value}
                         onChange={onChange}
@@ -24,4 +25,3 @@ export class EditableTextarea extends Component {
     }
 }
 
-export default EditableTextarea
