@@ -10,6 +10,7 @@ import EditableInput from "components/editable/EditableInput";
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import EditableTextarea from "components/editable/EditableTextarea";
+import EditableSelect from "components/editable/EditableSelect";
 
 const withUerCheck = Component => props => {
     const [guard, setGuard] = useState({canProceed: false, isChecking: true})
@@ -88,9 +89,21 @@ class RentalEdit extends Component {
             <div className="row">
                 <div className="col-md-8">
                 <div className="rental">
-                    <h2 className={`rental-type type-${rental.category}`}>
-                        {rental.shared ? "Shared" : "Whole"} {rental.category}
-                    </h2>
+                    <EditableSelect 
+                        entity={rental}
+                        field={'shared'}
+                        options={[true, false]}
+                        className={`rental-type type-${rental.category}`}
+                        onUpdate={this.updateRental}
+                    />
+                    <EditableSelect 
+                        entity={rental}
+                        field={'category'}
+                        options={['apartment', 'condor', 'house']}
+                        className={`rental-type type-${rental.category}`}
+                        onUpdate={this.updateRental}
+                    />
+
                     <EditableInput 
                         entity={rental}
                         field={'title'}
@@ -111,7 +124,7 @@ class RentalEdit extends Component {
                         transformView={value => capitalize(value)}
                         onUpdate={this.updateRental}
                     />
-                    <div className="rental-room-info">
+                    <div className="rental-room-info mb-1">
                         <span>
                             <FontAwesomeIcon icon="building"/> 
                             <EditableInput 
@@ -136,9 +149,8 @@ class RentalEdit extends Component {
                         className={'rental-description'}
                         onUpdate={this.updateRental}
                         rows={5}
-                        cols={50}
+                        cols={60}
                     />
-                    {/* <p className="rental-description">{rental.description}</p> */}
                     <hr />
 
                     <RentalAssets />
