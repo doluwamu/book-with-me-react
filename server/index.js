@@ -8,6 +8,7 @@ const { provideErrorHandler } = require("./middlewares");
 const rentalRoutes = require("./routes/rentals");
 const userRoutes = require("./routes/users");
 const bookingRoutes = require("./routes/bookings");
+const imageUploadRoutes = require("./routes/imageUpload");
 
 const { onlyAuthUser } = require("./controllers/users");
 
@@ -45,6 +46,7 @@ app.get("/api/v1/secret", onlyAuthUser, (req, res) => {
 app.use("/api/v1/rentals", rentalRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/bookings", bookingRoutes);
+app.use("/api/v1/image-upload", imageUploadRoutes);
 
 app.listen(PORT, () => {
   console.log("Server is listening on port:", PORT);
