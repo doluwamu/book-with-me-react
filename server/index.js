@@ -16,6 +16,7 @@ const { onlyAuthUser } = require("./controllers/users");
 require("./models/rental");
 require("./models/users");
 require("./models/booking");
+require("./models/cloudinary-image");
 
 const app = express();
 

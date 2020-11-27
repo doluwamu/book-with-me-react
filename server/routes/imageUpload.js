@@ -1,43 +1,48 @@
 const express = require("express");
 const { onlyAuthUser } = require("../controllers/users");
-const { datauri } = require('../services/datauri')
-
+const { datauri } = require("../services/datauri");
 
 const router = express.Router();
 
-const { cloudUpload } = require('../services/cloudinary');
+const { cloudUpload } = require("../services/cloudinary");
+const CloudinaryImage = require("../models/cloudinary-image");
 
-const upload = require('../services/multer');
-const singleUpload = upload.single('image');
+const upload = require("../services/multer");
+const singleUpload = upload.single("image");
 
 const singleUploadCtrl = (req, res, next) => {
-    singleUpload(req, res, (error) => {
-        if(error) {
-            return res.sendApiError({
-                title: "Upload Error",
-                detail: error.message,
-            });
-        }
-        next();
-    })
-}
+  singleUpload(req, res, (error) => {
+    if (error) {
+      return res.sendApiError({
+        title: "Upload Error",
+        detail: error.message,
+      });
+    }
+    next();
+  });
+};
 
 router.post("", onlyAuthUser, singleUploadCtrl, async (req, res) => {
-
-    try {
-        if(!req.file){ throw new Error('Image is not presented!') }
-        const file64 = datauri(req.file);
-        const result = await cloudUpload(file64.content)
-        console.log(result)
-        return res.json({message: 'Uploading file...'})
-    } catch (error) {
-        return res.sendApiError({
-            title: "Upload Error",
-            detail: error.message,
-        });
+  try {
+    if (!req.file) {
+      throw new Error("Image is not presented!");
     }
+    const file64 = datauri(req.file);
+    const result = await cloudUpload(file64.content);
+    const cImage = new CloudinaryImage({
+      url: result.secure_url,
+      cloudinaryId: result.public_id,
+    });
 
-    
+    const savedImage = await cImage.save();
+
+    return res.json({ _id: savedImage.id, url: savedImage.url });
+  } catch (error) {
+    return res.sendApiError({
+      title: "Upload Error",
+      detail: error.message,
+    });
+  }
 });
 
 module.exports = router;
