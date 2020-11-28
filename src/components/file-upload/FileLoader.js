@@ -5,11 +5,12 @@ import { uploadImage } from "actions";
 export class FileLoader extends Component {
   constructor() {
     super();
+    this.inputRef = React.createRef();
     this.fileReader = new FileReader();
     this.selectedImage = null;
     this.state = {
       imgBase64: "",
-      imgStatus: 'INIT'
+      imgStatus: "INIT",
     };
   }
 
@@ -22,18 +23,20 @@ export class FileLoader extends Component {
   }
 
   handleImageUpload = () => {
+    this.changeImageStatus("PENDING");
     uploadImage(this.selectedImage)
       .then(() => {
-        alert("Image Uploaded");
+        this.changeImageStatus("UPLOADED");
       })
       .catch(() => {
-        alert("Upload failed");
+        this.changeImageStatus("ERROR");
       });
   };
 
   handleImageLoad = ({ target: { result: imgBase64 } }) => {
     this.setState({
       imgBase64,
+      imgStatus: "LOADED",
     });
   };
 
@@ -50,6 +53,16 @@ export class FileLoader extends Component {
     this.fileReader.readAsDataURL(this.selectedImage);
   };
 
+  cancelImage = () => {
+    this.inputRef.current.value = null;
+    this.selectedImage = null;
+    this.setState({ imgBase64: "", imgStatus: "INIT" });
+  };
+
+  changeImageStatus = (imgStatus) => {
+    this.setState({ imgStatus });
+  };
+
   render() {
     const { imgBase64, imgStatus } = this.state;
     return (
@@ -57,6 +70,7 @@ export class FileLoader extends Component {
         <label className="img-upload btn btn-bwm-main">
           <span className="upload-text">Select an image</span>
           <input
+            ref={this.inputRef}
             onChange={this.handleChange}
             accept=".jpg, .png, .jpeg"
             className="file-input"
@@ -69,22 +83,39 @@ export class FileLoader extends Component {
               <div className="img-preview">
                 <img src={imgBase64} alt="" />
               </div>
-              { imgStatus === 'PENDING' && 
-                <div className>
-
+              {imgStatus === "PENDING" && (
+                <div className="spinner-container">Loading...</div>
+              )}
+              {imgStatus === "UPLOADED" && (
+                <div className="alert alert-success upload-status">
+                  Image has been successfully uploaded!
                 </div>
-              }
+              )}
+              {imgStatus === "ERROR" && (
+                <div className="alert alert-danger upload-status">
+                  Image upload failed!
+                </div>
+              )}
             </div>
-            <button
-              className="btn btn-success mr-1"
-              type="button"
-              onClick={this.handleImageUpload}
-            >
-              Upload
-            </button>
-            <button className="btn btn-danger" type="button">
-              Cancel
-            </button>
+            {imgStatus === "LOADED" && (
+              <button
+                className="btn btn-success mr-1"
+                type="button"
+                onClick={this.handleImageUpload}
+              >
+                Upload
+              </button>
+            )}
+            {imgStatus !== "LOADED" ||
+              (imgStatus !== "UPLOADED" && (
+                <button
+                  className="btn btn-danger"
+                  type="button"
+                  onClick={this.cancelImage}
+                >
+                  Cancel
+                </button>
+              ))}
           </>
         )}
       </div>

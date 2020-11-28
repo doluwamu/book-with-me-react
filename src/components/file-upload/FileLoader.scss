@@ -14,13 +14,18 @@
   .img-preview-container {
     background: #f7f7f7;
     padding: 10px;
-  }
 
-  .img-preview {
-    height: 116px;
+    .img-preview {
+      height: 116px;
 
-    img {
-      height: 100%;
+      img {
+        height: 100%;
+      }
+    }
+
+    .upload-status {
+      margin-bottom: 0;
+      margin-top: 10px;
     }
   }
 }
