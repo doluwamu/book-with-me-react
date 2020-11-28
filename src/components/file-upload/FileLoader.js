@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import "./FileLoader.scss";
+import { uploadImage } from "actions";
 
 export class FileLoader extends Component {
   constructor() {
     super();
     this.fileReader = new FileReader();
+    this.selectedImage = null;
     this.state = {
       imgBase64: "",
     };
@@ -13,6 +15,16 @@ export class FileLoader extends Component {
   componentDidMount() {
     this.listenToFileLoading();
   }
+
+  componentWillUnmount() {
+    this.removeFileLoadListener();
+  }
+
+  handleImageUpload = () => {
+    uploadImage(this.selectedImage)
+    .then(() => alert('Image Uploader'))
+    .catch(() => alert('Upload'))
+  };
 
   handleImageLoad = ({ target: { result: imgBase64 } }) => {
     this.setState({
@@ -24,9 +36,13 @@ export class FileLoader extends Component {
     this.fileReader.addEventListener("load", this.handleImageLoad);
   };
 
+  removeFileLoadListener = () => {
+    this.fileReader.removeEventListener("load", this.handleImageLoad);
+  };
+
   handleChange = (event) => {
-    const file = event.target.files[0];
-    this.fileReader.readAsDataURL(file);
+    this.selectedImage = event.target.files[0];
+    this.fileReader.readAsDataURL(this.selectedImage);
   };
 
   render() {
@@ -42,7 +58,25 @@ export class FileLoader extends Component {
             type="file"
           />
         </label>
-        {imgBase64 && <img src={imgBase64} alt="" />}
+        {imgBase64 && (
+          <>
+            <div className="img-preview-container mb-2">
+              <div className="img-preview">
+                <img src={imgBase64} alt="" />
+              </div>
+            </div>
+            <button
+              className="btn btn-success mr-1"
+              type="button"
+              onClick={this.handleImageUpload}
+            >
+              Upload
+            </button>
+            <button className="btn btn-danger" type="button">
+              Cancel
+            </button>
+          </>
+        )}
       </div>
     );
   }
