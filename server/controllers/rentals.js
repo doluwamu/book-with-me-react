@@ -60,6 +60,7 @@ exports.getRentalById = async (req, res) => {
   const { rentalId } = req.params;
 
   Rental.findById(rentalId)
+    .populate("owner", "-password")
     .populate("image")
     .exec((error, foundRental) => {
       if (error) {

@@ -14,15 +14,15 @@ class RentalDetail extends Component {
   }
 
   componentWillUnmount() {
-    this.props.dispatch({type: 'UNMOUNT_RENTAL'})
+    this.props.dispatch({ type: "UNMOUNT_RENTAL" });
   }
 
   get location() {
-    const {rental:{ street, city }} = this.props
-    return street && city && city + ', ' + street
+    const {
+      rental: { street, city },
+    } = this.props;
+    return street && city && city + ", " + street;
   }
-
-
 
   render() {
     const { rental, isFetching, isAuth } = this.props;
@@ -34,7 +34,7 @@ class RentalDetail extends Component {
         <div className="upper-section">
           <div className="row">
             <div className="col-md-6">
-              <img src={rental.image} alt={rental.title} />
+              <img src={rental.image.url} alt={rental.title} />
             </div>
             <div className="col-md-6">
               <TomMap location={this.location} />
@@ -47,7 +47,7 @@ class RentalDetail extends Component {
             <div className="col-md-8">
               <RentalInfo rental={rental} />
             </div>
-            <div className="col-md-4"> 
+            <div className="col-md-4">
               <BookingReserve rental={rental} isAuth={isAuth} />
             </div>
           </div>
@@ -57,10 +57,10 @@ class RentalDetail extends Component {
   }
 }
 
-const mapStateToProps = ({ rental, auth: {isAuth} }) => ({
+const mapStateToProps = ({ rental, auth: { isAuth } }) => ({
   rental: rental.item,
   isFetching: rental.isFetching,
-  isAuth
+  isAuth,
 });
 
 const RentalDetailWithRouter = withRouter(RentalDetail);

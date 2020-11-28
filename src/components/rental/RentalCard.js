@@ -1,14 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
 // Function for displaying rental card for home page
 const RentalCard = ({ rental, renderMenu }) => {
   return (
     <>
       <Link className="rental-link" to={`/rentals/${rental._id}`}>
         <div className="card bwm-card">
-          <img className="card-img-top" src={rental.image} alt={rental.title} />
+          <img
+            className="card-img-top"
+            src={rental.image.url}
+            alt={rental.title}
+          />
 
           <div className="card-body">
             <h6 className={`card-subtitle mb-0 type-${rental.category}`}>
@@ -22,7 +25,7 @@ const RentalCard = ({ rental, renderMenu }) => {
           </div>
         </div>
       </Link>
-      { renderMenu && renderMenu() }
+      {renderMenu && renderMenu()}
     </>
   );
 };
