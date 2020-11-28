@@ -22,8 +22,12 @@ export class FileLoader extends Component {
 
   handleImageUpload = () => {
     uploadImage(this.selectedImage)
-    .then(() => alert('Image Uploader'))
-    .catch(() => alert('Upload'))
+      .then(() => {
+        alert("Image Uploaded");
+      })
+      .catch(() => {
+        alert("Upload failed");
+      });
   };
 
   handleImageLoad = ({ target: { result: imgBase64 } }) => {

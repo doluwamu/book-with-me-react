@@ -1,6 +1,13 @@
 import axiosService from "services/AxiosService";
 const { bwmAxios } = axiosService;
 
+export const uploadImage = (image) => {
+  const formData = new FormData();
+  formData.append("image", image);
+
+  return bwmAxios.post("/image-upload", formData);
+};
+
 // Function to get server errors while performing an action
 export const extractApiErrors = (resError) => {
   let errors = [{ title: "Errors!", detail: "Ooops!, something went wrong" }];
@@ -9,13 +16,6 @@ export const extractApiErrors = (resError) => {
     errors = resError.data.errors;
   }
   return errors;
-};
-
-export const uploadImage = (image) => {
-  const formData = new formData();
-  formData.append("image", image);
-
-  return bwmAxios.axios("/image-upload", formData);
 };
 
 export const deleteResource = ({ url, resource }) => (dispatch) => {
