@@ -1,6 +1,6 @@
 const express = require("express");
 const { onlyAuthUser } = require("../controllers/users");
-const { datauri } = require("../services/datauri");
+const { datauri } = require("../services/dataUri");
 
 const router = express.Router();
 
@@ -27,6 +27,7 @@ router.post("", onlyAuthUser, singleUploadCtrl, async (req, res) => {
     if (!req.file) {
       throw new Error("Image is not presented!");
     }
+
     const file64 = datauri(req.file);
     const result = await cloudUpload(file64.content);
     const cImage = new CloudinaryImage({
@@ -35,7 +36,6 @@ router.post("", onlyAuthUser, singleUploadCtrl, async (req, res) => {
     });
 
     const savedImage = await cImage.save();
-
     return res.json({ _id: savedImage.id, url: savedImage.url });
   } catch (error) {
     return res.sendApiError({

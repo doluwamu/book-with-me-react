@@ -9,6 +9,7 @@ export class FileLoader extends Component {
     this.selectedImage = null;
     this.state = {
       imgBase64: "",
+      imgStatus: 'INIT'
     };
   }
 
@@ -50,7 +51,7 @@ export class FileLoader extends Component {
   };
 
   render() {
-    const { imgBase64 } = this.state;
+    const { imgBase64, imgStatus } = this.state;
     return (
       <div className="img-upload-container">
         <label className="img-upload btn btn-bwm-main">
@@ -68,6 +69,11 @@ export class FileLoader extends Component {
               <div className="img-preview">
                 <img src={imgBase64} alt="" />
               </div>
+              { imgStatus === 'PENDING' && 
+                <div className>
+
+                </div>
+              }
             </div>
             <button
               className="btn btn-success mr-1"
