@@ -5,6 +5,7 @@ import { fetchRentalById } from "actions";
 import RentalInfo from "components/rental/RentalInfo";
 import TomMap from "components/map/TomMap";
 import BookingReserve from "components/booking/BookingReserve";
+import Spinner from "components/shared/Spinner.js";
 
 // Rental details page component
 class RentalDetail extends Component {
@@ -27,7 +28,7 @@ class RentalDetail extends Component {
   render() {
     const { rental, isFetching, isAuth } = this.props;
     if (isFetching || !rental._id) {
-      return <h3>Loading...</h3>;
+      return <Spinner />;
     }
     return (
       <section id="rentalDetails">

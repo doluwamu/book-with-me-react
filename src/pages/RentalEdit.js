@@ -13,6 +13,7 @@ import {
   EditableSelect,
   EditableTextarea,
 } from "components/editable";
+import Spinner from "components/shared/Spinner";
 
 const withUerCheck = (Component) => (props) => {
   const [guard, setGuard] = useState({ canProceed: false, isChecking: true });
@@ -30,7 +31,7 @@ const withUerCheck = (Component) => (props) => {
   } else if (!isChecking && !canProceed) {
     return <Redirect to={{ pathname: "/" }} />;
   } else {
-    return <h3>Loading...</h3>;
+    return <Spinner />;
   }
 };
 
@@ -72,7 +73,7 @@ class RentalEdit extends Component {
   render() {
     const { rental, isFetching } = this.props;
     if (isFetching || !rental._id) {
-      return <h3>Loading...</h3>;
+      return <Spinner />;
     }
     return (
       <section id="rentalDetails">

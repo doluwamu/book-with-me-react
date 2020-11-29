@@ -83,7 +83,7 @@ export class FileLoader extends Component {
           <>
             <div className="img-preview-container mb-2">
               <div className="img-preview">
-                <img src={imgBase64} alt="" />
+                <img src={imgBase64} alt="Image to be uploaded" />
               </div>
               {imgStatus === "PENDING" && (
                 <div className="spinner-container upload-status">
