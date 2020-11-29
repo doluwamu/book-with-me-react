@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./FileLoader.scss";
 import { uploadImage } from "actions";
+import Spinner from "components/shared/Spinner";
 
 export class FileLoader extends Component {
   constructor() {
@@ -84,7 +85,9 @@ export class FileLoader extends Component {
                 <img src={imgBase64} alt="" />
               </div>
               {imgStatus === "PENDING" && (
-                <div className="spinner-container">Loading...</div>
+                <div className="spinner-container upload-status">
+                  <Spinner />
+                </div>
               )}
               {imgStatus === "UPLOADED" && (
                 <div className="alert alert-success upload-status">
@@ -106,8 +109,6 @@ export class FileLoader extends Component {
                 Upload
               </button>
             )}
-            {imgStatus !== "LOADED" ||
-              (imgStatus !== "UPLOADED" && (
                 <button
                   className="btn btn-danger"
                   type="button"
@@ -115,7 +116,6 @@ export class FileLoader extends Component {
                 >
                   Cancel
                 </button>
-              ))}
           </>
         )}
       </div>
