@@ -5,7 +5,7 @@ export const uploadImage = (image) => {
   const formData = new FormData();
   formData.append("image", image);
 
-  return bwmAxios.post("/image-upload", formData);
+  return bwmAxios.post("/image-upload", formData).then((res) => res.data);
 };
 
 // Function to get server errors while performing an action

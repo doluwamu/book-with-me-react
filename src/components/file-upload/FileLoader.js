@@ -26,7 +26,8 @@ export class FileLoader extends Component {
   handleImageUpload = () => {
     this.changeImageStatus("PENDING");
     uploadImage(this.selectedImage)
-      .then(() => {
+      .then((uploadedImage) => {
+        this.props.onFileUpload(uploadedImage._id);
         this.changeImageStatus("UPLOADED");
       })
       .catch(() => {
@@ -109,13 +110,26 @@ export class FileLoader extends Component {
                 Upload
               </button>
             )}
-                <button
-                  className="btn btn-danger"
-                  type="button"
-                  onClick={this.cancelImage}
-                >
-                  Cancel
-                </button>
+
+            {imgStatus === "LOADED" ||
+            imgStatus === "PENDING" ||
+            imgStatus === "ERROR" ? (
+              <button
+                className="btn btn-danger"
+                type="button"
+                onClick={this.cancelImage}
+              >
+                Cancel
+              </button>
+            ) : (
+              <button
+                className="btn btn-success"
+                type="button"
+                onClick={this.cancelImage}
+              >
+                Okay
+              </button>
+            )}
           </>
         )}
       </div>
