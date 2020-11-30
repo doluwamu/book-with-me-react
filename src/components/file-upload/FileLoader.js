@@ -3,6 +3,7 @@ import "./FileLoader.scss";
 import { uploadImage } from "actions";
 import Spinner from "components/shared/Spinner";
 import ImageCrop from "./ImageCrop";
+import { blobToFile, getCroppedImg } from "helpers/functions";
 
 class ImageSnippet {
   constructor(src, name, type) {
@@ -19,19 +20,20 @@ export class FileLoader extends Component {
     this.fileReader = new FileReader();
     this.originalImage = null;
     this.state = {
-      croppedBase64: "",
+      croppedImg: null,
       selectedImg: null,
       imgStatus: "INIT",
     };
   }
 
   handleImageUpload = () => {
-    const { selectedImg } = this.state;
+    const { croppedImg } = this.state;
     this.changeImageStatus("PENDING");
-    // todo: fix
-    uploadImage(selectedImg)
+
+    const imageToUpload = blobToFile(croppedImg);
+    uploadImage(imageToUpload)
       .then((uploadedImage) => {
-        this.props.onFileUpload(uploadedImage._id);
+        this.props.onFileUpload(uploadedImage);
         this.changeImageStatus("UPLOADED");
       })
       .catch(() => {
@@ -41,13 +43,17 @@ export class FileLoader extends Component {
 
   handleImageLoad = (image) => (this.originalImage = image);
 
-  handleCropComplete = (crop) => {
+  handleCropComplete = async (crop) => {
     if (!this.originalImage) {
       return;
     }
-    debugger;
-    const croppedBase64 = getCroppedImg(this.originalImage, crop);
-    this.setState({ croppedBase64 });
+    const { selectedImg } = this.state;
+    const croppedImg = await getCroppedImg(
+      this.originalImage,
+      crop,
+      selectedImg.name
+    );
+    this.setState({ croppedImg });
   };
 
   handleChange = (event) => {
@@ -71,7 +77,7 @@ export class FileLoader extends Component {
   cancelImage = () => {
     this.inputRef.current.value = null;
     this.originalImage = null;
-    this.setState({ selectedImg: null, croppedBase64: "", imgStatus: "INIT" });
+    this.setState({ selectedImg: null, croppedImg: null, imgStatus: "INIT" });
   };
 
   changeImageStatus = (imgStatus) => {
@@ -79,7 +85,7 @@ export class FileLoader extends Component {
   };
 
   render() {
-    const { selectedImg, imgStatus } = this.state;
+    const { selectedImg, imgStatus, croppedImg } = this.state;
     return (
       <div className="img-upload-container">
         <label className="img-upload btn btn-bwm-main">
@@ -103,7 +109,10 @@ export class FileLoader extends Component {
           <>
             <div className="img-preview-container mb-2">
               <div className="img-preview">
-                <img src={selectedImg.src} alt="" />
+                <img
+                  src={croppedImg ? croppedImg.url : selectedImg.src}
+                  alt=""
+                />
               </div>
               {imgStatus === "PENDING" && (
                 <div className="spinner-container upload-status">
@@ -158,36 +167,3 @@ export class FileLoader extends Component {
 }
 
 export default FileLoader;
-
-function getCroppedImg(image, crop, fileName) {
-  const canvas = document.createElement("canvas");
-  const scaleX = image.naturalWidth / image.width;
-  const scaleY = image.naturalHeight / image.height;
-  canvas.width = crop.width;
-  canvas.height = crop.height;
-  const ctx = canvas.getContext("2d");
-
-  ctx.drawImage(
-    image,
-    crop.x * scaleX,
-    crop.y * scaleY,
-    crop.width * scaleX,
-    crop.height * scaleY,
-    0,
-    0,
-    crop.width,
-    crop.height
-  );
-
-  // As Base64 string
-  const base64Image = canvas.toDataURL("image/jpeg");
-  return base64Image;
-
-  // As a blob
-  // return new Promise((resolve, reject) => {
-  //   canvas.toBlob(blob => {
-  //     blob.name = fileName;
-  //     resolve(blob);
-  //   }, 'image/jpeg', 1);
-  // });
-}
