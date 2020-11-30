@@ -12,6 +12,7 @@ import {
   EditableInput,
   EditableSelect,
   EditableTextarea,
+  EditableImage
 } from "components/editable";
 import Spinner from "components/shared/Spinner";
 
@@ -80,7 +81,12 @@ class RentalEdit extends Component {
         <div className="upper-section">
           <div className="row">
             <div className="col-md-6">
-              <img src={rental.image.url} alt={rental.title} />
+              {/* <img src={rental.image.url} alt={rental.title} /> */}
+              <EditableImage 
+                entity={rental}
+                field={'image'}
+                onUpdate={this.updateRental}
+              />
             </div>
             <div className="col-md-6">
               <TomMap location={this.location} />
