@@ -6,6 +6,8 @@ const ImageView = ({ value, ...rest }) => {
   return <img {...rest} src={value} alt="" />;
 };
 
+const createEvent = (value) => ({ target: { value } });
+
 export class EditableImage extends Component {
   render() {
     return (
@@ -13,7 +15,7 @@ export class EditableImage extends Component {
         {...this.props}
         viewComponent={ImageView}
         renderComponent={(value, onChange, onKeyDown) => (
-          <FileLoader onFileUpload={() => {}} />
+          <FileLoader onFileUpload={(image) => onChange(createEvent(image))} />
         )}
       />
     );

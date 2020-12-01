@@ -87,7 +87,7 @@ export class FileLoader extends Component {
   render() {
     const { selectedImg, imgStatus, croppedImg } = this.state;
     return (
-      <div className="img-upload-container">
+      <div className="img-upload-container mb-2">
         <label className="img-upload btn btn-bwm-main">
           <span className="upload-text">Select an image</span>
           <input
