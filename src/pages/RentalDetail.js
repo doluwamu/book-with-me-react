@@ -35,7 +35,7 @@ class RentalDetail extends Component {
         <div className="upper-section">
           <div className="row">
             <div className="col-md-6">
-              <img src={rental.image.url} alt={rental.title} />
+              <img className='rental-img ' src={rental.image.url} alt={rental.title} />
             </div>
             <div className="col-md-6">
               <TomMap location={this.location} />

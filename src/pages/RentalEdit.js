@@ -12,7 +12,7 @@ import {
   EditableInput,
   EditableSelect,
   EditableTextarea,
-  EditableImage
+  EditableImage,
 } from "components/editable";
 import Spinner from "components/shared/Spinner";
 
@@ -77,15 +77,18 @@ class RentalEdit extends Component {
       return <Spinner />;
     }
     return (
-      <section id="rentalDetails">
+      <section id="rentalEdit">
         <div className="upper-section">
           <div className="row">
             <div className="col-md-6">
               {/* <img src={rental.image.url} alt={rental.title} /> */}
-              <EditableImage 
+              <EditableImage
                 entity={rental}
-                field={'image'}
+                field={"image"}
                 onUpdate={this.updateRental}
+                transformView={(image) => image.url}
+                containerType={"block"}
+                className="rental-img mb-2"
               />
             </div>
             <div className="col-md-6">
@@ -105,7 +108,7 @@ class RentalEdit extends Component {
                   options={[true, false]}
                   className={`rental-type type-${rental.category}`}
                   onUpdate={this.updateRental}
-                  inline={true}
+                  containerType={"inline"}
                 />
                 <EditableSelect
                   entity={rental}
@@ -143,7 +146,7 @@ class RentalEdit extends Component {
                       field={"numOfRooms"}
                       className={"mr-0 ml-2"}
                       onUpdate={this.updateRental}
-                      inline={true}
+                      containerType={"inline"}
                     />
                     bedroom(s)
                   </span>

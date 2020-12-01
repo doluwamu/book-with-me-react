@@ -1,22 +1,28 @@
-.editable-component {
-  display: flex;
-  margin-bottom: 5px;
+#rentalEdit {
+  .editable-component {
+    display: flex;
+    margin-bottom: 5px;
 
-  &-inline {
-    display: inline-flex;
-  }
+    &-inline {
+      display: inline-flex;
+    }
 
-  .editable-item {
-    margin-bottom: 0 !important;
-  }
+    &-block {
+      display: block;
+    }
 
-  .button-container {
-    align-self: center;
-  }
+    .editable-item {
+      margin-bottom: 0;
+    }
 
-  .btn.btn-editable {
-    margin-left: 5px;
-    color: white;
-    font-size: 12px;
+    .button-container {
+      align-self: center;
+    }
+
+    .btn.btn-editable {
+      margin-left: 5px;
+      color: white;
+      font-size: 12px;
+    }
   }
 }

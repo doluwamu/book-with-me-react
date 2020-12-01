@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import EditableComponent from "./EditableComponent";
 import FileLoader from "components/file-upload/FileLoader";
 
-const ImageView = ({ value, ...rest }) => <img {...rest} src={value} alt="" />;
+const ImageView = ({ value, ...rest }) => {
+  return <img {...rest} src={value} alt="" />;
+};
 
 export class EditableImage extends Component {
   render() {
@@ -10,7 +12,9 @@ export class EditableImage extends Component {
       <EditableComponent
         {...this.props}
         viewComponent={ImageView}
-        renderComponent={(value, onChange, onKeyDown) => <FileLoader />}
+        renderComponent={(value, onChange, onKeyDown) => (
+          <FileLoader onFileUpload={() => {}} />
+        )}
       />
     );
   }
