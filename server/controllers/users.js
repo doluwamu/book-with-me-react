@@ -1,6 +1,6 @@
 const User = require("../models/users");
 const jwt = require("jsonwebtoken");
-const config = require("../config/dev.js");
+const config = require("../config");
 
 exports.login = (req, res) => {
   const { email, password } = req.body;
